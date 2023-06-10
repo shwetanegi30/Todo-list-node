@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<div class="box" id="heading">
+   <h1> <%= listTitle %> </h1>
+</div>
+
+<div class="box">
+    <% for(var i=0; i<newListItem.length; i++){ %>
+
+        <div class="item">
+            <input type="checkbox">
+            <p><%= newListItem[i] %></p>
+        </div>
+        <% } %>
+
+        <form class="item form" action="/" method="post">
+            <input class="text" type="text" name="newItem" placeholder="New Item" autocomplete="off">
+            <button class="btn-btn" type="submit" name="list" value=<%= listTitle %>> + </button>
+       </form>
+
+    <a class="btn btn-light btn-lg mr-5 ml-5" href="/auth/logout" role="button">Log Out</a>
+    <a class="btn btn-dark btn-lg ml-5" href="/auth/submit" role="button">Submit</a>
+       
+</div>
+
+
+<%- include('partials/header') %>
