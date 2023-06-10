@@ -14,16 +14,10 @@ const ConnectMongo = require('connect-mongo');
 // const GoogleStrategy = require('passport-google-oauth20').Strategy;
 // const findOrCreate = require('mongoose-findorcreate');
 
-
-
-const date = require("./utils/date")
-
-const authRouter = require('./routes/auth.route')
+const authRouter = require('./routes/auth.route');
+const listRouter = require('./routes/list.route');
 
 const app = express();
-
-const items = ["Buy Food", "Cook Food"];
-const workItem = []
 
 app.use(express.static("public"));
 
@@ -45,12 +39,12 @@ app.use(
   })
 );
 
-
-    
-  
 mongoose.connect("mongodb://localhost:27017/todoList", { useNewUrlParser: true });
-
-// const connection = mongoose.connection;
+const connection = mongoose.connection;
+connection.on('error', console.error.bind(console, 'unable to connect with mongodb'));
+connection.once('open', function callback () {
+  console.log("connected to mongodb");
+});
 
 // mongoose.set('useCreateIndex', true)
 
@@ -58,32 +52,6 @@ mongoose.connect("mongodb://localhost:27017/todoList", { useNewUrlParser: true }
 
 app.get("/", function (req, res) {
   res.render("home");
-});
-
-app.get("/list", function (req, res) {
-  let day = date.getDate();
-
-  res.render("list", { listTitle: day, newListItem: items });
-});
-
-
-app.post("/list", function (req, res) {
-  let item = req.body.newItem;
-
-//   if(req.body.list === "work"){
-//     workItem.push(item)
-//     res.redirect("/work")
-//  } else{
-//  items.push(item)
-//  res.redirect("/list")
-//  }
-
-  if (err) {
-    console.log(err);
-  } else {
-    items.push(item);
-    res.redirect("/list");
-  }
 });
 
 
@@ -123,9 +91,9 @@ app.use(function(req,res,next){
   next()
 })
 
-
-app.use('/auth', authRouter)
-
+//------routes
+app.use('/auth', authRouter);
+app.use('/list', listRouter);
 
 app.listen(3001 , function () {
   console.log("Server started on port 3001");
