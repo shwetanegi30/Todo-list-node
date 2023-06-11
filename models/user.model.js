@@ -11,11 +11,7 @@ const userSchema = new mongoose.Schema({
     providedId: String,
     provider: String,
     // imgSrc: String,
-    authLevel: String,
-    articles: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Article'
-    }]
+    authLevel: String
   })
   
   userSchema.plugin(passportLocalMongoose);

@@ -11,7 +11,7 @@ const passport = require("passport");
 const ConnectMongo = require('connect-mongo');
        
 // const passportLocalMongoose = require("passport-local-mongoose");    
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 // const findOrCreate = require('mongoose-findorcreate');
 
 const authRouter = require('./routes/auth.route');
@@ -141,18 +141,6 @@ app.listen(3001 , function () {
 //   });
 // });
 
-// passport.use(new GoogleStrategy({
-//   clientID: process.env.CLIENT_ID,
-//   clientSecret: process.env.CLIENT_SECRET,
-//   callbackURL: "http://localhost:3001/auth/google/user",
-//   userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-// },
-// function(accessToken, refreshToken, profile, cb) {
-//   User.findOrCreate({ googleId: profile.id }, function (err, user) {
-//     return cb(err, user);
-//   });
-// }
-// ));
 
 // app.get("/login", function (req, res) {
 //   res.render("login");
